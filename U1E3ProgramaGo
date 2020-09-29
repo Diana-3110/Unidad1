@@ -1,0 +1,47 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"log"
+	"os"
+)
+
+func main() {
+	var a [4]string
+	a[0] = "Diana"
+	a[1] = "Maritza"
+	a[2] = "Bartolome"
+	a[3] = "Rodriguez"
+	var d [4]string
+
+	file, err := os.Open("datos.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+	scanner := bufio.NewScanner(file)
+	var cont = 0
+	fmt.Println("Frase desordenada")
+	for scanner.Scan() {
+
+		fmt.Println(scanner.Text())
+		d[cont] = scanner.Text()
+		cont++
+
+	}
+	
+	var cadenaCorrecta [4]string
+
+	for i := 0; i < 4; i++ {
+		for j := 0; j < 4; j++ {
+			if a[i] == d[j] {
+				cadenaCorrecta[i] = a[i]
+			}
+		}
+	}
+	fmt.Println("Frase ordenada")
+	for k := 0; k < 4; k++ {
+		fmt.Println(cadenaCorrecta[k])
+	}
+}
